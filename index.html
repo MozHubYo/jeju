@@ -156,6 +156,21 @@
   .tag{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:7px;background:color-mix(in srgb,var(--c,#999) 13%,#fff);color:color-mix(in srgb,var(--c,#999) 70%,#333)}
   .sdesc{font-size:12px;color:var(--ink2);line-height:1.55}
 
+  /* combo (擇一/不可組) card */
+  .combo{flex:none;border:2.5px solid var(--accent,#5b8fd6);border-radius:16px;padding:11px 12px 12px;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--accent,#5b8fd6) 10%,#fff),#fff);
+    box-shadow:0 6px 16px color-mix(in srgb,var(--accent,#5b8fd6) 18%,transparent);animation:cardin .45s backwards}
+  .combo .cmb-h{font-weight:900;font-size:13.5px;color:var(--accent,#5b8fd6);line-height:1.25}
+  .combo .cmb-sub{font-size:11px;color:var(--ink2);line-height:1.5;margin:5px 0 9px}
+  .combo .cmb-sub b{color:var(--accent)}
+  .cmb-row{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border-radius:11px;margin-bottom:6px}
+  .cmb-row:last-child{margin-bottom:0}
+  .cmb-row.ok{background:color-mix(in srgb,var(--accent,#5b8fd6) 9%,#fff);border:1.5px solid color-mix(in srgb,var(--accent,#5b8fd6) 28%,#fff)}
+  .cmb-row.bad{background:#fdedec;border:1.5px solid #f3b6b0}
+  .cmb-tag{flex:none;font-weight:800;font-size:11px;color:#fff;background:var(--accent,#5b8fd6);padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .cmb-x{flex:none;font-weight:800;font-size:11px;color:#fff;background:#d9534f;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .cmb-d{font-size:11.5px;color:var(--ink);line-height:1.45}
+
   /* overview day cards */
   .ovcard{flex:none;display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #f0e6cf;border-radius:16px;
     background:#fff;cursor:pointer;transition:.18s;animation:cardin .45s backwards}
@@ -331,7 +346,7 @@ const SPOTS = {
     desc:'落地後到 Gate 2 樂天櫃檯，接駁到龍潭取車中心約 30 分。回程抓 08:50 前到機場。'},
   yeondong:  {x:355,y:200, icon:'🏨', name:'連洞 大本營', time:'住宿', scene:'city', kind:'hub', lpos:'right',
     tags:['黑豬肉','免稅店','Olive Young'], rate:null, norate:'吃住補給',
-    desc:'濟州市最熱鬧商圈，飯店/換錢所/免稅店都在這。Night1 Ventimo → Night2-3 樂天城市。晚餐黑豬肉任挑一家。'},
+    desc:'濟州市最熱鬧商圈，飯店/換錢所/免稅店都在這。Night1 Ventimo → Night2-3 樂天城市。<br>🐷 黑豬肉：Donsadon／火水木／<b>숙성도本店</b>（熟成，老衡洞）。🍲 連洞在地：<b>옛날아우내순대</b>（豬肉湯飯）、<b>24시간뼈해장국</b>（骨湯，24h 宵夜）。'},
   jongdalri: {x:818,y:152, icon:'🌸', name:'終達里繡球路', time:'09:00', scene:'hydrangea', kind:'core', day:2, lpos:'above',
     tags:['露天','繡球','免費','怕雨'], rate:null, norate:'海邊秘境・免費',
     desc:'東北海邊露天繡球，海＋花同框。早上人少光線好。露天怕雨，所以排在乾日 6/18 先衝。'},
@@ -344,9 +359,15 @@ const SPOTS = {
   hueree:    {x:706,y:420, icon:'🐷', name:'休愛里', time:'14:10', scene:'hydrangea', kind:'core', day:2, lpos:'below',
     tags:['繡球花節','變色繡球','餵黑豬','₩13,000'], rate:{r:3.9,n:'5.6k',src:'Google'},
     desc:'最有名的繡球花節，會隨土壤酸鹼變色（粉/藍/紫/白），還能餵濟州黑豬。露天怕雨。'},
-  londonbagel:{x:628,y:130, icon:'🥯', name:'London Bagel', time:'08–18', scene:'food', kind:'opt', day:2, lpos:'above',
-    tags:['超會排隊','建議當回程點心'], rate:{r:4.4,n:'13.9k',src:'Catchtable'},
-    desc:'全韓最紅貝果店之一，北岸順路。排隊兇 → 建議當回程點心，別犧牲早上的海邊繡球。'},
+  londonbagel:{x:632,y:126, icon:'🥯', name:'London Bagel＋Cafe Layered', time:'08–18', scene:'food', kind:'opt', day:2, lpos:'above',
+    tags:['貝果派','排隊兇','東福里','可預約'], rate:{r:4.4,n:'13.9k',src:'Catchtable'},
+    desc:'全韓最紅貝果店之一（東福里 719-1）。<b>Cafe Layered 레이어드就在正隔壁、同一個點</b>——鹹貝果＋甜蛋糕一次吃完。排隊兇，建議 Catchtable 預約。＝〈組合 B 貝果派〉。'},
+  odeurang:  {x:486,y:150, icon:'🥖', name:'오드랑베이커리', time:'09–21', scene:'food', kind:'opt', day:2, lpos:'above',
+    tags:['麵包派','蒜香法棍','新村里','外帶快'], rate:null, norate:'濟州三大麵包店',
+    desc:'濟州三大麵包店，招牌<b>蒜香法棍（마농바게트）</b>。新村里、離連洞最近，外帶快不必久排——出發時順手帶當早餐。＝〈組合 A 麵包派〉。'},
+  bluebottle:{x:724,y:196, icon:'☕', name:'Blue Bottle 藍瓶', time:'08:30–19', scene:'sea', kind:'opt', day:2, lpos:'right',
+    tags:['藍瓶咖啡','松堂里','林間','要小繞'], rate:null, norate:'藍瓶咖啡濟州店',
+    desc:'藍瓶咖啡濟州店，松堂里林間空間。要往內陸小繞一下。配 오드랑當「麵包派」路上的咖啡站最順。'},
   uido:      {x:965,y:172, icon:'⛴️', name:'牛島', time:'整天替代', scene:'sea', kind:'alt', day:2, lpos:'above',
     tags:['離島','花生冰淇淋','怕風雨停航'], rate:{r:4.4,n:'1.1k',src:'TripAdvisor'},
     desc:'城山港搭船過去。離島小冒險、花生冰淇淋必吃，但吃掉一整天且遇雨／風大停航。想去就拿掉休愛里。'},
@@ -360,8 +381,8 @@ const SPOTS = {
     tags:['綠茶園','綠茶冰淇淋','室內','雨天友善'], rate:{r:4.1,n:'23.5k',src:'Google'},
     desc:'一望無際綠茶園，綠茶冰淇淋＋蛋糕必點。室內為主，雨天友善。旁邊 Innisfree 可逛。'},
   aewol:     {x:174,y:256, icon:'🌅', name:'涯月咖啡街', time:'16:00', scene:'sea', kind:'core', day:3, lpos:'above',
-    tags:['海景咖啡','夕陽','ENFP加分'], rate:null, norate:'海景咖啡一條街',
-    desc:'海景咖啡一條街，看夕陽、拍照、發呆。一條街有很多家，挑順眼的停。'},
+    tags:['海景咖啡','夕陽','Haejigae','ENFP加分'], rate:null, norate:'海景咖啡一條街',
+    desc:'海景咖啡一條街，看夕陽、拍照、發呆。<b>老婆 IG 點名 Haejigae 해지개</b>（애월북서길 54，09:00–21:00）日落粉橘超美，可當這站定點。'},
   park981:   {x:148,y:322, icon:'🏎️', name:'9.81 PARK', time:'09–18', scene:'racing', kind:'opt', day:3, lpos:'left',
     tags:['無動力賽車','刺激','晴天玩','選做'], rate:{r:4.5,n:'250',src:'Trip.com'},
     desc:'無動力重力賽車，涯月。ENFP 會超愛！晴天玩最爽，雨天打折。想玩就換掉涯月咖啡街時段。'},
@@ -385,8 +406,13 @@ const META = {
      spots:['airport','yeondong'],
      note:'第一晚不排景點。連洞吃<b>黑豬肉</b>（Donsadon／火水木／黑豬一條街任挑），吃飽逛逛 Olive Young。'},
   2:{label:'Day 2',date:'6/18 四',theme:'東部海岸圈・露天繡球＋城山',wx:'☀️ 乾（梅雨前最後乾日）',hex:'#5b8fd6',
-     spots:['yeondong','jongdalri','seongsan','lunch2','hueree','londonbagel','uido'],
-     note:'<b>今日選擇</b>：🥯 London Bagel 建議當回程點心；🍱 城山午餐二選一；想換 ⛴️ 牛島就拿掉休愛里。'},
+     spots:['yeondong','jongdalri','seongsan','lunch2','hueree','odeurang','londonbagel','bluebottle','uido'],
+     combo:{title:'北岸 4 家名店：擇一～二（別想全吃）',
+       sub:'連洞→終達里沿線都是排隊店，主線只夠停 1～2 站。<b>A、B 二選一</b>就好：',
+       ok:[['🅰️ 麵包派','🥖 오드랑（出發外帶）＋ ☕ Blue Bottle（路上咖啡）— 不用久排，最從容'],
+           ['🅱️ 貝果派','🥯 London Bagel ＋ 🍰 Cafe Layered（同一個點，鹹甜一次吃完）']],
+       bad:'🥖 오드랑 ＋ 🥯 London Bagel 兩家都排 → 早上被排隊吃光，終達里晚到、城山中午曬'},
+     note:'<b>今日選擇</b>：🍞 北岸名店 A／B 擇一（見上方）；🍱 城山午餐二選一；想換 ⛴️ 牛島就拿掉休愛里。'},
   3:{label:'Day 3',date:'6/19 五',theme:'西南繡球雙園圈',wx:'🌧️ 梅雨第一天・有室內退路',hex:'#b06aa6',
      spots:['yeondong','camellia','manorblanc','osulloc','aewol','park981','lucia','arte'],
      note:'<b>今日加碼二選一</b>：🏎️ 9.81 賽車（晴天）或 🌊 Cafe Lucia（海景咖啡），頂多加 1 個。暴雨退 🎨 ARTE。'},
@@ -554,6 +580,15 @@ function stars(s){
   const rt=s.rate;
   return `<span class="rate" title="${rt.src}"><span class="star">★</span>${rt.r}<span class="cnt">(${rt.n})</span></span>`;
 }
+function comboCard(c){
+  const oks=c.ok.map(([t,d])=>`<div class="cmb-row ok"><span class="cmb-tag">${t}</span><span class="cmb-d">${d}</span></div>`).join('');
+  return `<div class="combo">
+    <div class="cmb-h">⚖️ ${c.title}</div>
+    <div class="cmb-sub">${c.sub}</div>
+    ${oks}
+    <div class="cmb-row bad"><span class="cmb-x">✗ 別這樣</span><span class="cmb-d">${c.bad}</span></div>
+  </div>`;
+}
 function spotCard(key,delay){
   const s=SPOTS[key];
   const col = s.kind==='hub' ? '#7c8aa0' : DAY_HEX[s.day]||OV_HEX;
@@ -592,7 +627,8 @@ function renderPanel(key){
   pHead.innerHTML=`<div class="ph-top"><span class="ph-day">${m.label}</span><span class="ph-date">${m.date}</span></div>
     <div class="ph-theme">${m.theme}</div><span class="ph-wx">${m.wx}</span>
     <div class="ph-note">${m.note}</div>`;
-  cardsEl.innerHTML=m.spots.map((k,i)=>spotCard(k,i*0.05)).join('');
+  const comboHtml = m.combo ? comboCard(m.combo) : '';
+  cardsEl.innerHTML=comboHtml + m.spots.map((k,i)=>spotCard(k,i*0.05)).join('');
   cardsEl.querySelectorAll('.scard').forEach(c=>{
     const k=c.dataset.key;
     c.addEventListener('mouseenter',()=>hlSpot(k,true));
