@@ -2,671 +2,445 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐭 鼠寶的濟州島大冒險</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f0962f">
+<title>🐭 鼠寶的濟州島行程</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --d1:#f0962f; --d2:#5b8fd6; --d3:#b06aa6; --d4:#54ada3;
-    --ov:#e0863c;
-    --cream:#fbf4e4; --cream2:#f4e8cf; --ink:#5b4636; --ink2:#8a7660;
-    --sea:#8fd6da; --land:#bfe39a;
-    --line:#e7d6b3; --gold:#f5a623;
-    --shadow:0 10px 28px rgba(120,90,50,.18);
-    font-family:"Noto Sans TC",system-ui,sans-serif;
+    --bg:#faf7f2; --card:#ffffff; --ink:#2e2a24; --ink2:#6b6357; --ink3:#9a9082;
+    --line:#ece4d6; --line2:#f2ecdf;
+    --shadow:0 2px 10px rgba(120,90,50,.07);
+    --shadow-lg:0 6px 22px rgba(120,90,50,.12);
+    --ok:#3a9d6e; --warn:#d9803a; --danger:#d35850; --info:#3f6fb0;
+    font-family:"Noto Sans TC",system-ui,-apple-system,sans-serif;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
   body{
-    background:
-      radial-gradient(circle at 18% 12%, #fff7e8 0%, transparent 45%),
-      radial-gradient(circle at 85% 88%, #fdeccf 0%, transparent 50%),
-      var(--cream);
-    color:var(--ink);
-    height:100vh;overflow:hidden;
-    padding:14px 18px;position:relative;
+    background:var(--bg);color:var(--ink);line-height:1.6;
+    font-size:16px;-webkit-text-size-adjust:100%;
+    padding-bottom:40px;
   }
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
-    background-image:radial-gradient(rgba(180,140,80,.10) 1.2px, transparent 1.4px);
-    background-size:22px 22px;
-  }
-  .wrap{max-width:1320px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative;z-index:1}
+  .wrap{max-width:640px;margin:0 auto;padding:0 14px}
 
   /* ---------- header ---------- */
-  header{text-align:center;flex:none;margin-bottom:10px}
+  header{text-align:center;padding:20px 14px 12px}
   .ttl{
     font-family:"Fredoka","Noto Sans TC",sans-serif;font-weight:700;
-    font-size:clamp(22px,3.4vw,36px);color:var(--ink);letter-spacing:.5px;line-height:1;
-    text-shadow:2px 2px 0 #fff, 3px 4px 0 rgba(224,134,60,.18);
-    display:inline-flex;align-items:center;gap:10px;
+    font-size:clamp(22px,6vw,30px);color:var(--ink);line-height:1.15;
+    display:inline-flex;align-items:center;gap:9px;
   }
-  .ttl .mouse{display:inline-block;animation:wiggle 3.5s ease-in-out infinite;transform-origin:bottom center}
+  .ttl .mouse{display:inline-block;animation:wiggle 3.6s ease-in-out infinite;transform-origin:bottom center}
   @keyframes wiggle{0%,90%,100%{transform:rotate(0)}93%{transform:rotate(-12deg)}96%{transform:rotate(12deg)}}
-  .sub{
-    margin-top:6px;font-size:13px;color:var(--ink2);font-weight:500;
-    display:inline-flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;
-    background:#fff;padding:5px 16px;border-radius:999px;box-shadow:0 4px 14px rgba(150,110,60,.12);border:2px solid #fff;
-  }
-  .sub b{color:var(--d1)}
-  .dot-sep{width:5px;height:5px;border-radius:50%;background:var(--line)}
+  .sub{margin-top:8px;font-size:13px;color:var(--ink2);font-weight:500}
+  .sub b{color:#d97a1f}
 
-  /* ---------- main row ---------- */
-  .main{flex:1;min-height:0;display:flex;gap:14px}
+  /* ---------- sticky day tabs ---------- */
+  .tabs-outer{position:sticky;top:0;z-index:30;background:var(--bg);
+    padding:8px 0 9px;margin:0 -14px;box-shadow:0 4px 12px -8px rgba(120,90,50,.25)}
+  .tabs{display:flex;gap:7px;max-width:640px;margin:0 auto;padding:0 14px}
+  .tab{flex:1;cursor:pointer;border:none;background:var(--card);border-radius:13px;
+    padding:8px 4px 9px;text-align:center;border:2px solid var(--line);
+    transition:transform .12s ease, border-color .12s, box-shadow .12s;min-width:0}
+  .tab .t-d{font-family:"Fredoka";font-weight:700;font-size:15px;color:var(--ink2);line-height:1}
+  .tab .t-dt{font-size:11px;color:var(--ink3);font-weight:600;margin-top:3px;white-space:nowrap}
+  .tab .t-wx{font-size:13px;margin-top:2px;line-height:1}
+  .tab.on{border-color:var(--c,#f0962f);box-shadow:0 4px 0 var(--c,#f0962f);transform:translateY(-2px)}
+  .tab.on .t-d{color:var(--cd,#c2622a)}
 
-  /* ---------- board ---------- */
-  .board{
-    flex:1;min-width:0;min-height:0;position:relative;
-    background:linear-gradient(160deg,#fffaf0,#f7ecd6);border-radius:26px;padding:12px;
-    box-shadow:var(--shadow), inset 0 0 0 3px #fff, inset 0 0 0 7px var(--cream2);
-    border:3px solid #e9d8b6;display:flex;align-items:center;justify-content:center;
-  }
-  .board::after{content:"";position:absolute;inset:11px;border-radius:18px;pointer-events:none;border:2px dashed #e3cfa3;opacity:.7}
-  .corner{position:absolute;font-size:22px;opacity:.85;z-index:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.1))}
-  .corner.tl{top:5px;left:10px;transform:rotate(-12deg)}
-  .corner.tr{top:5px;right:10px;transform:rotate(12deg)}
-  .corner.bl{bottom:5px;left:10px;transform:rotate(12deg)}
-  .corner.br{bottom:5px;right:10px;transform:rotate(-12deg)}
-  svg.map{width:100%;height:100%;display:block}
+  /* ---------- day section ---------- */
+  .day{display:none;animation:fade .35s ease}
+  .day.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-  /* spots */
-  .spot{cursor:pointer;transition:opacity .4s ease, filter .4s ease}
-  .spot .ring{transition:transform .25s ease;transform-box:fill-box;transform-origin:center}
-  .spot:hover .ring,.spot.hl .ring{transform:scale(1.16)}
-  .spot:hover,.spot.hl{filter:drop-shadow(0 4px 6px rgba(90,60,30,.25))}
-  .spot.dim{opacity:.3;filter:saturate(.3) blur(.2px)}
-  .spot-inner{transform-box:fill-box;transform-origin:center}
-  .pulse{transform-box:fill-box;transform-origin:center}
-  .spot.active .pulse{animation:pulse 1.8s ease-out infinite}
-  @keyframes pulse{0%{transform:scale(.8);opacity:.55}100%{transform:scale(2.1);opacity:0}}
-  .spot-label{font-family:"Noto Sans TC";font-weight:700;font-size:13px;fill:var(--ink);
-    paint-order:stroke;stroke:#fffaf0;stroke-width:3.4px;stroke-linejoin:round;pointer-events:none}
-  .spot-emoji{font-size:21px;pointer-events:none}
-  .badge-tx{font-family:"Noto Sans TC";font-weight:700;font-size:10.5px;fill:#fff;pointer-events:none}
-  .spot.pop .spot-inner{animation:pop .55s cubic-bezier(.34,1.56,.64,1) backwards}
-  @keyframes pop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+  .day-head{background:var(--card);border:2px solid var(--line);border-left:6px solid var(--cd);
+    border-radius:16px;padding:14px 16px;margin:14px 0 4px;box-shadow:var(--shadow)}
+  .dh-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dh-day{font-family:"Fredoka";font-weight:700;font-size:22px;color:var(--cd);line-height:1}
+  .dh-date{font-weight:700;font-size:15px;color:var(--ink)}
+  .dh-wx{font-size:12px;font-weight:700;color:#fff;background:var(--cd);padding:3px 11px;border-radius:999px;margin-left:auto}
+  .dh-theme{font-size:15px;font-weight:700;color:var(--ink);margin-top:9px}
+  .dh-note{font-size:13px;color:var(--ink2);line-height:1.6;margin-top:7px}
+  .dh-note b{color:var(--cd);font-weight:700}
 
-  /* token */
-  #tokenArt{transform-box:fill-box;transform-origin:bottom center;animation:bob 1.6s ease-in-out infinite}
-  #token.moving #tokenArt{animation:none}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-  /* stationary celebration (when 鼠寶 doesn't travel) */
-  #token.cheer #tokenArt{animation:cheer .72s cubic-bezier(.34,1.56,.64,1)}
-  @keyframes cheer{
-    0%{transform:translateY(0) rotate(0)}
-    24%{transform:translateY(-17px) rotate(-9deg)}
-    46%{transform:translateY(0) rotate(0)}
-    66%{transform:translateY(-9px) rotate(7deg)}
-    84%{transform:translateY(-1px) rotate(-3deg)}
-    100%{transform:translateY(0) rotate(0)}
-  }
-  #tokenSpark{transform-box:fill-box;transform-origin:center;opacity:0}
-  #token.cheer #tokenSpark{animation:spark .72s ease}
-  @keyframes spark{0%{opacity:0;transform:scale(.3)}45%{opacity:1;transform:scale(1.15)}100%{opacity:0;transform:scale(.9)}}
-  #tokenFlag{transform-box:fill-box;transform-origin:left center;animation:flagwave 1.3s ease-in-out infinite}
-  @keyframes flagwave{0%,100%{transform:skewY(0) scaleX(1)}50%{transform:skewY(-7deg) scaleX(.93)}}
-  .float{animation:drift 9s ease-in-out infinite}
-  @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
+  /* timeline */
+  .tl{position:relative;padding-left:6px;margin-top:6px}
 
-  /* ---------- side panel ---------- */
-  .panel{flex:0 0 348px;min-height:0;display:flex;flex-direction:column;
-    background:rgba(255,253,247,.96);border:3px solid #ecdcb8;border-radius:24px;
-    box-shadow:var(--shadow);overflow:hidden}
-  .p-head{flex:none;padding:14px 16px 12px;border-bottom:2px dashed #ecdcb8;position:relative;
-    background:linear-gradient(180deg,color-mix(in srgb,var(--accent,#888) 13%,#fffdf7),#fffdf7)}
-  .p-head .ph-top{display:flex;align-items:baseline;gap:9px}
-  .p-head .ph-day{font-family:"Fredoka";font-weight:700;font-size:24px;color:var(--accent,#888);line-height:1}
-  .p-head .ph-date{font-weight:700;font-size:14px;color:var(--ink)}
-  .p-head .ph-theme{font-size:13px;color:var(--ink);font-weight:600;margin-top:6px}
-  .p-head .ph-wx{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--accent,#888);
-    padding:2px 10px;border-radius:999px;margin-top:8px}
-  .p-head .ph-note{margin-top:9px;font-size:11.5px;color:var(--ink2);line-height:1.5}
-  .p-head .ph-note b{color:var(--accent)}
+  /* ---------- stop card ---------- */
+  .stop{background:var(--card);border:1.5px solid var(--line);border-radius:15px;
+    margin-top:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .stop-h{display:flex;align-items:center;gap:10px;padding:11px 14px 10px}
+  .time{flex:none;font-family:"Fredoka";font-weight:700;font-size:13px;
+    color:var(--cd);background:color-mix(in srgb,var(--c) 14%,#fff);
+    padding:4px 10px;border-radius:9px;white-space:nowrap;letter-spacing:.3px}
+  .stop-ttl{font-weight:900;font-size:16px;color:var(--ink);line-height:1.25;display:flex;align-items:center;gap:7px}
+  .stop-ttl .ic{font-size:18px}
+  .stop-b{padding:0 14px 13px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+  .tag{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:7px;
+    background:color-mix(in srgb,var(--c) 11%,#fff);color:var(--cd)}
+  .desc{font-size:13.5px;color:var(--ink2);line-height:1.65}
+  .desc b{color:var(--ink);font-weight:700}
 
-  .cards{flex:1;min-height:0;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:11px}
-  .cards::-webkit-scrollbar{width:8px}
-  .cards::-webkit-scrollbar-thumb{background:#e3cfa3;border-radius:99px}
-  .cards::-webkit-scrollbar-track{background:transparent}
+  /* ---------- car card (Day1 hero) ---------- */
+  .car{background:var(--card);border:2px solid var(--c);border-radius:18px;
+    margin-top:12px;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .car-h{display:flex;align-items:center;gap:10px;padding:13px 16px;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--c) 16%,#fff),color-mix(in srgb,var(--c) 6%,#fff));
+    border-bottom:1.5px solid color-mix(in srgb,var(--c) 22%,#fff)}
+  .car-h .time{background:#fff}
+  .car-h .ct{font-weight:900;font-size:17px;color:var(--cd);display:flex;align-items:center;gap:8px}
+  .car-h .ct .ic{font-size:20px}
+  .car-sec{padding:13px 16px;border-top:1px dashed var(--line)}
+  .car-sec:first-of-type{border-top:none}
+  .sec-lbl{font-size:12px;font-weight:700;color:var(--ink3);letter-spacing:.5px;
+    display:flex;align-items:center;gap:6px;margin-bottom:9px;text-transform:uppercase}
+  .sec-lbl .bar{width:3px;height:13px;background:var(--c);border-radius:2px}
 
-  .scard{flex:none;border:2px solid #f0e6cf;border-radius:16px;overflow:hidden;background:#fff;cursor:pointer;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;animation:cardin .45s backwards}
-  @keyframes cardin{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
-  .scard:hover,.scard.focus{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--c,#999) 28%,transparent);border-color:var(--c,#999)}
-  .scard-photo{height:74px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .scard-photo::after{content:"";position:absolute;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.3px);background-size:13px 13px;opacity:.35}
-  .scard-photo .hero{font-size:38px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.18));z-index:1}
-  .scard-photo .deco{position:absolute;font-size:15px;opacity:.65}
-  .scard-photo .deco.a{top:8px;left:12px}.scard-photo .deco.b{bottom:8px;right:14px;font-size:13px}
-  .chip{position:absolute;z-index:2;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;backdrop-filter:blur(2px)}
-  .chip.time{top:7px;right:8px;background:rgba(255,255,255,.92);color:var(--ink)}
-  .chip.kind{top:7px;left:8px;color:#fff}
+  /* order detail rows */
+  .od{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:13.5px}
+  .od dt{color:var(--ink2);font-weight:600;white-space:nowrap}
+  .od dd{color:var(--ink);font-weight:700;text-align:right}
+  .od dd.hl{color:var(--cd)}
+  .od dd small{display:block;font-weight:500;color:var(--ink3);font-size:11.5px;margin-top:1px}
 
-  .scard-body{padding:10px 12px 12px}
-  .scard-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .sname{font-weight:900;font-size:14.5px;color:var(--ink);line-height:1.2}
-  .rate{display:inline-flex;align-items:center;gap:3px;font-weight:700;font-size:13px;color:#caa23a;white-space:nowrap;flex:none}
-  .rate .star{color:var(--gold);font-size:14px}
-  .rate .cnt{color:var(--ink2);font-weight:600;font-size:10.5px}
-  .rate.none{font-size:11px;color:#b08bbf;background:#f6eefa;padding:2px 9px;border-radius:999px}
-  .src{font-size:9.5px;color:#b3a489;font-weight:600;margin-top:2px;text-align:right}
-  .tags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 6px}
-  .tag{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:7px;background:color-mix(in srgb,var(--c,#999) 13%,#fff);color:color-mix(in srgb,var(--c,#999) 70%,#333)}
-  .sdesc{font-size:12px;color:var(--ink2);line-height:1.55}
+  /* numbered steps */
+  .steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:9px}
+  .steps li{counter-increment:s;position:relative;padding-left:30px;font-size:13.5px;color:var(--ink);line-height:1.55}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:1px;
+    width:21px;height:21px;border-radius:50%;background:var(--c);color:#fff;
+    font-family:"Fredoka";font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+  .steps li b{color:var(--cd)}
+  .steps li .mini{color:var(--ink3);font-size:12px}
 
-  /* combo (擇一/不可組) card */
-  .combo{flex:none;border:2.5px solid var(--accent,#5b8fd6);border-radius:16px;padding:11px 12px 12px;
-    background:linear-gradient(180deg,color-mix(in srgb,var(--accent,#5b8fd6) 10%,#fff),#fff);
-    box-shadow:0 6px 16px color-mix(in srgb,var(--accent,#5b8fd6) 18%,transparent);animation:cardin .45s backwards}
-  .combo .cmb-h{font-weight:900;font-size:13.5px;color:var(--accent,#5b8fd6);line-height:1.25}
-  .combo .cmb-sub{font-size:11px;color:var(--ink2);line-height:1.5;margin:5px 0 9px}
-  .combo .cmb-sub b{color:var(--accent)}
-  .cmb-row{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border-radius:11px;margin-bottom:6px}
-  .cmb-row:last-child{margin-bottom:0}
-  .cmb-row.ok{background:color-mix(in srgb,var(--accent,#5b8fd6) 9%,#fff);border:1.5px solid color-mix(in srgb,var(--accent,#5b8fd6) 28%,#fff)}
-  .cmb-row.bad{background:#fdedec;border:1.5px solid #f3b6b0}
-  .cmb-tag{flex:none;font-weight:800;font-size:11px;color:#fff;background:var(--accent,#5b8fd6);padding:2px 8px;border-radius:999px;white-space:nowrap}
-  .cmb-x{flex:none;font-weight:800;font-size:11px;color:#fff;background:#d9534f;padding:2px 8px;border-radius:999px;white-space:nowrap}
-  .cmb-d{font-size:11.5px;color:var(--ink);line-height:1.45}
+  /* QR */
+  .qr-box{text-align:center}
+  .qr-box img{width:170px;height:170px;border:6px solid #fff;border-radius:14px;
+    box-shadow:0 3px 14px rgba(0,0,0,.12);background:#fff}
+  .qr-cap{font-size:12.5px;color:var(--ink2);margin-top:9px;line-height:1.5}
+  .qr-cap b{color:var(--cd);font-family:"Fredoka";letter-spacing:.5px}
 
-  /* overview day cards */
-  .ovcard{flex:none;display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #f0e6cf;border-radius:16px;
-    background:#fff;cursor:pointer;transition:.18s;animation:cardin .45s backwards}
-  .ovcard:hover{transform:translateY(-2px);box-shadow:0 8px 18px color-mix(in srgb,var(--c) 25%,transparent);border-color:var(--c)}
-  .ovcard .ov-em{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:25px;flex:none;
-    background:linear-gradient(150deg,color-mix(in srgb,var(--c) 30%,#fff),color-mix(in srgb,var(--c) 10%,#fff))}
-  .ovcard .ov-d{font-family:"Fredoka";font-weight:700;font-size:16px;color:var(--c);line-height:1}
-  .ovcard .ov-t{font-size:12.5px;color:var(--ink);font-weight:600;margin-top:3px}
-  .ovcard .ov-s{font-size:11px;color:var(--ink2);margin-top:2px}
+  /* tappable link buttons */
+  .lnk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+    font-size:12.5px;font-weight:700;color:var(--cd);
+    background:color-mix(in srgb,var(--c) 12%,#fff);border:1.5px solid color-mix(in srgb,var(--c) 32%,#fff);
+    padding:7px 14px;border-radius:999px;transition:background .12s,transform .1s}
+  .lnk:active{transform:scale(.97);background:color-mix(in srgb,var(--c) 20%,#fff)}
+  .lnk .arr{font-size:11px;opacity:.7}
+  .sec-lbl .lnk{margin-left:auto;padding:4px 11px;font-size:11.5px;text-transform:none;letter-spacing:0}
 
-  /* ---------- switcher ---------- */
-  .switch{flex:none;display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:11px}
-  .day-btn{cursor:pointer;background:#fff;border-radius:16px;padding:8px 15px 9px;
-    box-shadow:0 4px 0 #e8d8b6, 0 8px 16px rgba(150,110,60,.13);transition:transform .14s ease, box-shadow .14s ease;
-    display:flex;flex-direction:column;align-items:center;gap:1px;min-width:90px;position:relative;border:2.5px solid transparent}
-  .day-btn:hover{transform:translateY(-2px)}
-  .day-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #e8d8b6}
-  .day-btn .db-d{font-family:"Fredoka";font-weight:700;font-size:16px;line-height:1;color:var(--ink)}
-  .day-btn .db-sm{font-size:10.5px;color:var(--ink2);font-weight:600;margin-top:3px}
-  .day-btn.on{border-color:var(--c);box-shadow:0 4px 0 var(--c), 0 8px 18px color-mix(in srgb,var(--c) 40%, transparent);transform:translateY(-2px)}
-  .day-btn.on .db-d{color:var(--c)}
-  .day-btn .pin{position:absolute;top:-11px;right:-9px;font-size:17px;opacity:0;transform:scale(.4) rotate(-20deg);transition:.2s}
-  .day-btn.on .pin{opacity:1;transform:scale(1) rotate(0)}
+  /* route map img */
+  .mapimg{width:100%;border-radius:12px;border:1.5px solid var(--line);display:block}
+  .mapimg-cap{font-size:12px;color:var(--ink3);margin-top:7px;line-height:1.5;text-align:center}
 
-  .hint{flex:none;text-align:center;font-size:11.5px;color:var(--ink2);margin-top:8px;font-weight:500}
-  .hint kbd{background:#fff;border:1.5px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:0 6px;font-family:"Fredoka";font-size:10.5px}
-  .hint .heart{color:#e8728f}
+  /* callout boxes */
+  .box{border-radius:13px;padding:11px 14px;font-size:13px;line-height:1.6;margin-top:10px}
+  .box .bh{font-weight:800;display:flex;align-items:center;gap:7px;margin-bottom:4px}
+  .box.bring{background:#fdf3e8;border:1.5px solid #f3d4ad}
+  .box.bring .bh{color:#b9701f}
+  .box.bring b{color:#9a5a14}
+  .box.binfo{background:#eef3fb;border:1.5px solid #cdddf3}
+  .box.binfo .bh{color:var(--info)}
+  .box.binfo b{color:#2d5793}
+  .chk{list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:5px}
+  .chk li{font-size:13px;font-weight:600;color:#7a5a2a;position:relative;padding-left:19px}
+  .chk li::before{content:"☑";position:absolute;left:0;color:#c4811f}
 
-  @media(max-width:900px){
-    body{height:auto;overflow:auto}
-    .wrap{height:auto}
-    .main{flex-direction:column}
-    .board{aspect-ratio:5/3}
-    .panel{flex:none;max-height:none}
-    .cards{overflow:visible}
-    .day-btn{min-width:0;padding:8px 11px}
-  }
+  /* ---------- pick (choose-one) card ---------- */
+  .pick{background:var(--card);border:2px solid var(--c);border-radius:18px;margin-top:12px;
+    overflow:hidden;box-shadow:var(--shadow-lg)}
+  .pick-h{padding:12px 16px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 15%,#fff),#fff)}
+  .pick-h .time{background:#fff;margin-bottom:7px;display:inline-block}
+  .pick-h .pt{font-weight:900;font-size:16px;color:var(--cd);display:flex;align-items:center;gap:8px}
+  .pick-h .ps{font-size:12.5px;color:var(--ink2);margin-top:5px;line-height:1.55}
+  .opts{padding:11px 14px 13px;display:flex;flex-direction:column;gap:9px}
+  .opt{border:1.5px solid var(--line);border-radius:13px;padding:11px 13px;background:#fff}
+  .opt-t{font-weight:800;font-size:14.5px;color:var(--ink);display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+  .opt-t .pin{font-size:11px;font-weight:700;color:#fff;background:var(--c);padding:2px 8px;border-radius:999px;flex:none}
+  .opt-meta{font-size:12px;color:var(--ink3);font-weight:600;margin-left:auto}
+  .opt-d{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-top:6px}
+  .opt-d b{color:var(--ink);font-weight:700}
+  .pick-note{background:#fbf6ee;border-top:1px dashed var(--line);padding:10px 16px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+  .pick-note b{color:var(--cd)}
+
+  /* ---------- todo placeholder ---------- */
+  .todo{margin-top:14px;border:2px dashed color-mix(in srgb,var(--c) 45%,#ddd);border-radius:16px;
+    padding:24px 18px;text-align:center;background:color-mix(in srgb,var(--c) 5%,#fff)}
+  .todo .em{font-size:34px;display:block;margin-bottom:8px}
+  .todo .tt{font-weight:800;font-size:15px;color:var(--cd)}
+  .todo .td{font-size:13px;color:var(--ink2);margin-top:6px;line-height:1.6}
+
+  /* misc */
+  .stamp{font-size:12px;color:var(--ink3);text-align:center;margin-top:7px}
+  .stamp b{color:var(--cd);font-family:"Fredoka"}
+  footer{text-align:center;padding:26px 14px 10px;color:var(--ink3);font-size:12px;line-height:1.7}
+  footer .heart{color:#e8728f}
+  a.addr{color:var(--info);text-decoration:none;border-bottom:1px dotted var(--info)}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <h1 class="ttl"><span class="mouse">🐭</span> 鼠寶的濟州島大冒險</h1>
-    <div class="sub">
-      <span>📅 <b>2026.6.17–6.20</b></span><span class="dot-sep"></span>
-      <span>🌸 繡球花 × 海景 × 吃吃喝喝</span><span class="dot-sep"></span>
-      <span>🚗 樂天租車自駕</span>
-    </div>
-  </header>
+<header>
+  <h1 class="ttl"><span class="mouse">🐭</span> 鼠寶的濟州島行程</h1>
+  <div class="sub">📅 <b>2026.6.17 – 6.20</b> ・ 4 天 3 夜 ・ 🚗 樂天租車自駕</div>
+</header>
 
-  <div class="main">
-    <!-- BOARD -->
-    <div class="board">
-      <span class="corner tl">🍊</span><span class="corner tr">🌸</span>
-      <span class="corner bl">🌊</span><span class="corner br">🐷</span>
-
-      <svg class="map" id="map" viewBox="0 0 1000 600" aria-label="濟州島行程地圖" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#a6e4e7"/><stop offset="0.55" stop-color="#84d2d8"/><stop offset="1" stop-color="#65bfc8"/>
-          </linearGradient>
-          <linearGradient id="landG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#d6efad"/><stop offset="0.6" stop-color="#b6dd88"/><stop offset="1" stop-color="#9ccf72"/>
-          </linearGradient>
-          <radialGradient id="mtnG" cx="0.5" cy="0.2" r="0.9"><stop offset="0" stop-color="#a9d27a"/><stop offset="1" stop-color="#7bb259"/></radialGradient>
-          <radialGradient id="headG" cx="0.4" cy="0.3" r="0.8"><stop offset="0" stop-color="#dfe2e8"/><stop offset="1" stop-color="#bcc1cb"/></radialGradient>
-          <pattern id="waves" width="64" height="34" patternUnits="userSpaceOnUse">
-            <path d="M0 22 Q16 12 32 22 T64 22" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.22" stroke-linecap="round"/>
-          </pattern>
-          <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#3a6b6e" flood-opacity="0.22"/></filter>
-          <filter id="softS" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#6b5a3a" flood-opacity="0.28"/></filter>
-        </defs>
-
-        <rect x="0" y="0" width="1000" height="600" fill="url(#seaG)"/>
-        <rect x="0" y="0" width="1000" height="600" fill="url(#waves)"/>
-
-        <g opacity="0.9">
-          <text x="120" y="110" font-size="30" class="float">☁️</text>
-          <text x="700" y="540" font-size="26" class="float" style="animation-delay:-3s">☁️</text>
-          <text x="60" y="470" font-size="24">🐬</text>
-          <text x="470" y="80" font-size="22" class="float" style="animation-delay:-5s">⛵</text>
-        </g>
-
-        <g filter="url(#soft)">
-          <path d="M88,302 C112,214 250,150 432,150 C566,150 668,134 768,162 C868,190 942,236 934,300 C928,360 842,440 700,470 C560,496 416,500 296,476 C176,452 70,398 88,302 Z" fill="url(#landG)" stroke="#f1e2bd" stroke-width="7"/>
-          <path d="M88,302 C112,214 250,150 432,150 C566,150 668,134 768,162 C868,190 942,236 934,300 C928,360 842,440 700,470 C560,496 416,500 296,476 C176,452 70,398 88,302 Z" fill="none" stroke="#8cc063" stroke-width="2" opacity="0.5"/>
-        </g>
-        <g filter="url(#soft)"><ellipse cx="965" cy="172" rx="34" ry="22" fill="url(#landG)" stroke="#f1e2bd" stroke-width="5"/></g>
-
-        <g>
-          <path d="M470,330 Q500,250 530,330 Z" fill="url(#mtnG)" stroke="#79ad57" stroke-width="2"/>
-          <circle cx="500" cy="298" r="7" fill="#86b65f" stroke="#6d9a4b" stroke-width="2"/>
-          <text x="500" y="356" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5f7f43" style="paint-order:stroke;stroke:#e9f4cf;stroke-width:3px">漢拏山</text>
-          <text x="430" y="300" font-size="18">🌳</text><text x="600" y="300" font-size="18">🍊</text>
-          <text x="560" y="430" font-size="16">🌸</text><text x="250" y="350" font-size="15">🌼</text><text x="660" y="380" font-size="16">🐷</text>
-        </g>
-
-        <g id="routesFaint" fill="none" stroke="#7a6a4d" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.5 12" opacity="0.28"></g>
-        <path id="activeRoad" fill="none" stroke="#fff7ea" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"></path>
-        <path id="activeRoute" fill="none" stroke-linecap="round" stroke-width="6" stroke-dasharray="0.1 16"></path>
-        <path id="travelPath" fill="none" stroke="none" opacity="0"></path>
-
-        <text x="315" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#c2622a" style="paint-order:stroke;stroke:#fffaf0;stroke-width:3px">出發 / 回家</text>
-
-        <g id="spots"></g>
-
-        <!-- 鼠寶 token -->
-        <g id="token">
-          <ellipse cx="0" cy="3" rx="13" ry="4.5" fill="#3a5b3a" opacity="0.18"/>
-          <g id="tokenSpark" pointer-events="none">
-            <text x="-22" y="-58" font-size="13">✨</text>
-            <text x="20" y="-66" font-size="11">✨</text>
-            <text x="24" y="-40" font-size="12">💕</text>
-            <text x="-26" y="-38" font-size="10">✨</text>
-          </g>
-          <g id="tokenLean"><g id="tokenArt">
-            <rect x="-2" y="-50" width="4" height="50" rx="2" fill="#a06c43"/>
-            <circle cx="0" cy="0" r="3.5" fill="#a06c43"/>
-            <path id="tokenFlag" d="M0,-46 L24,-40 L0,-33 Z" fill="#f0962f" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
-            <g transform="translate(0,-64)">
-              <circle cx="-11" cy="-9" r="8.5" fill="#c4c8d1" stroke="#fff" stroke-width="1.5"/>
-              <circle cx="11" cy="-9" r="8.5" fill="#c4c8d1" stroke="#fff" stroke-width="1.5"/>
-              <circle cx="-11" cy="-9" r="4.2" fill="#ffc2d4"/><circle cx="11" cy="-9" r="4.2" fill="#ffc2d4"/>
-              <circle cx="0" cy="0" r="14.5" fill="url(#headG)" stroke="#fff" stroke-width="1.5"/>
-              <ellipse cx="-7.5" cy="4.5" rx="3" ry="2" fill="#ffb0c6" opacity="0.85"/><ellipse cx="7.5" cy="4.5" rx="3" ry="2" fill="#ffb0c6" opacity="0.85"/>
-              <circle cx="-5" cy="-1" r="2.1" fill="#3a3a44"/><circle cx="5" cy="-1" r="2.1" fill="#3a3a44"/>
-              <circle cx="-4.3" cy="-1.7" r="0.7" fill="#fff"/><circle cx="5.7" cy="-1.7" r="0.7" fill="#fff"/>
-              <ellipse cx="0" cy="4" rx="2.4" ry="1.9" fill="#ff8fb0"/>
-              <path d="M-3.5,7 Q0,10 3.5,7" fill="none" stroke="#9a8a78" stroke-width="1.3" stroke-linecap="round"/>
-              <g stroke="#b9bcc4" stroke-width="1" stroke-linecap="round" opacity="0.9">
-                <line x1="-3" y1="4" x2="-13" y2="2"/><line x1="-3" y1="5" x2="-13" y2="6"/>
-                <line x1="3" y1="4" x2="13" y2="2"/><line x1="3" y1="5" x2="13" y2="6"/>
-              </g>
-            </g>
-          </g></g>
-          <text id="tokenName" x="0" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#7a5a8a" style="paint-order:stroke;stroke:#fffaf0;stroke-width:3px">鼠寶</text>
-        </g>
-
-        <g transform="translate(922,540)" opacity="0.9">
-          <circle r="24" fill="#fffaf0" stroke="#e7d6b3" stroke-width="2.5"/>
-          <path d="M0,-17 L4.5,0 L0,17 L-4.5,0 Z" fill="#e0863c"/><path d="M0,-17 L4.5,0 L0,0 Z" fill="#c2622a"/>
-          <text x="0" y="-10" text-anchor="middle" font-size="8.5" font-weight="700" fill="#c2622a">N</text>
-        </g>
-
-        <g transform="translate(26,522)" font-size="11.5" font-weight="600" fill="#6b5a3a">
-          <rect x="-8" y="-15" width="224" height="62" rx="11" fill="#fffaf0" stroke="#e7d6b3" stroke-width="2" opacity="0.95"/>
-          <circle cx="6" cy="1" r="6.5" fill="#fff" stroke="#5b8fd6" stroke-width="3"/><text x="18" y="5">必訪</text>
-          <circle cx="74" cy="1" r="6.5" fill="#fff" stroke="#b06aa6" stroke-width="3" stroke-dasharray="3 2.5"/><text x="86" y="5">選做</text>
-          <circle cx="142" cy="1" r="6.5" fill="#fff" stroke="#9a8" stroke-width="3" stroke-dasharray="3 2.5"/><text x="154" y="5">替代</text>
-          <text x="-2" y="30">🐭</text><text x="14" y="30">＝鼠寶（切換日期看牠跑）</text>
-        </g>
-      </svg>
-    </div>
-
-    <!-- SIDE PANEL -->
-    <aside class="panel" id="panel">
-      <div class="p-head" id="pHead"></div>
-      <div class="cards" id="cards"></div>
-    </aside>
-  </div>
-
-  <div class="switch" id="switch"></div>
-  <p class="hint">點日期看 🐭 鼠寶沿路線跑 ・ 滑到地圖景點看右側圖卡 ・ 鍵盤 <kbd>←</kbd> <kbd>→</kbd> 切換　<span class="heart">♥</span> 為鼠寶量身打造</p>
+<div class="tabs-outer">
+  <div class="tabs" id="tabs"></div>
 </div>
 
-<script>
-/* ---------------- DATA ---------------- */
-/* rate: {r, n(count text), src} ; or null + norate descriptor */
-const SPOTS = {
-  airport:   {x:315,y:165, icon:'✈️', name:'濟州機場', time:'19:15', scene:'hub', kind:'hub', lpos:'above',
-    tags:['樂天租車','Gate 2 報到'], rate:null, norate:'交通起點',
-    desc:'落地後到 Gate 2 樂天櫃檯，接駁到龍潭取車中心約 30 分。回程抓 08:50 前到機場。'},
-  yeondong:  {x:355,y:200, icon:'🏨', name:'連洞 大本營', time:'住宿', scene:'city', kind:'hub', lpos:'right',
-    tags:['黑豬肉','免稅店','Olive Young'], rate:null, norate:'吃住補給',
-    desc:'濟州市最熱鬧商圈，飯店/換錢所/免稅店都在這。Night1 Ventimo → Night2-3 樂天城市。<br>🐷 黑豬肉：Donsadon／火水木／<b>숙성도本店</b>（熟成，老衡洞）。🍲 連洞在地：<b>옛날아우내순대</b>（豬肉湯飯）、<b>24시간뼈해장국</b>（骨湯，24h 宵夜）。'},
-  jongdalri: {x:818,y:152, icon:'🌸', name:'終達里繡球路', time:'09:00', scene:'hydrangea', kind:'core', day:2, lpos:'above',
-    tags:['露天','繡球','免費','怕雨'], rate:null, norate:'海邊秘境・免費',
-    desc:'東北海邊露天繡球，海＋花同框。早上人少光線好。露天怕雨，所以排在乾日 6/18 先衝。'},
-  seongsan:  {x:902,y:236, icon:'⛰️', name:'城山日出峰', time:'10:30', scene:'peak', kind:'core', day:2, lpos:'right',
-    tags:['世界遺產','登頂30分','露天'], rate:{r:4.5,n:'2.1k',src:'TripAdvisor'},
-    desc:'世界遺產火山口。登頂約 30 分；不想爬走海邊展望台一樣很美。'},
-  lunch2:    {x:876,y:300, icon:'🦐', name:'城山午餐（二選一）', time:'12:00', scene:'sea', kind:'choice', day:2, lpos:'right',
-    tags:['海鮮','京美家 vs 三姓穴'], rate:{r:4.0,n:'2k',src:'Google・三姓穴'},
-    desc:'🍚 京美家海女現撈丼（一人一碗清爽，在地推薦）vs 🦐 三姓穴海鮮湯城山店（一鍋共享、份量大、不會太辣）。'},
-  hueree:    {x:706,y:420, icon:'🐷', name:'休愛里', time:'14:10', scene:'hydrangea', kind:'core', day:2, lpos:'below',
-    tags:['繡球花節','變色繡球','餵黑豬','₩13,000'], rate:{r:3.9,n:'5.6k',src:'Google'},
-    desc:'最有名的繡球花節，會隨土壤酸鹼變色（粉/藍/紫/白），還能餵濟州黑豬。露天怕雨。'},
-  londonbagel:{x:632,y:126, icon:'🥯', name:'London Bagel＋Cafe Layered', time:'08–18', scene:'food', kind:'opt', day:2, lpos:'above',
-    tags:['貝果派','排隊兇','東福里','可預約'], rate:{r:4.4,n:'13.9k',src:'Catchtable'},
-    desc:'全韓最紅貝果店之一（東福里 719-1）。<b>Cafe Layered 레이어드就在正隔壁、同一個點</b>——鹹貝果＋甜蛋糕一次吃完。排隊兇，建議 Catchtable 預約。＝〈組合 B 貝果派〉。'},
-  odeurang:  {x:486,y:150, icon:'🥖', name:'오드랑베이커리', time:'09–21', scene:'food', kind:'opt', day:2, lpos:'above',
-    tags:['麵包派','蒜香法棍','新村里','外帶快'], rate:null, norate:'濟州三大麵包店',
-    desc:'濟州三大麵包店，招牌<b>蒜香法棍（마농바게트）</b>。新村里、離連洞最近，外帶快不必久排——出發時順手帶當早餐。＝〈組合 A 麵包派〉。'},
-  bluebottle:{x:724,y:196, icon:'☕', name:'Blue Bottle 藍瓶', time:'08:30–19', scene:'sea', kind:'opt', day:2, lpos:'right',
-    tags:['藍瓶咖啡','松堂里','林間','要小繞'], rate:null, norate:'藍瓶咖啡濟州店',
-    desc:'藍瓶咖啡濟州店，松堂里林間空間。要往內陸小繞一下。配 오드랑當「麵包派」路上的咖啡站最順。'},
-  uido:      {x:965,y:172, icon:'⛴️', name:'牛島', time:'整天替代', scene:'sea', kind:'alt', day:2, lpos:'above',
-    tags:['離島','花生冰淇淋','怕風雨停航'], rate:{r:4.4,n:'1.1k',src:'TripAdvisor'},
-    desc:'城山港搭船過去。離島小冒險、花生冰淇淋必吃，但吃掉一整天且遇雨／風大停航。想去就拿掉休愛里。'},
-  camellia:  {x:360,y:452, icon:'🌺', name:'山茶花之丘', time:'09:50', scene:'hydrangea', kind:'core', day:3, lpos:'below',
-    tags:['天藍色繡球','溫室','雨天OK','₩10,000'], rate:{r:4.2,n:'15.4k',src:'Google'},
-    desc:'夏季限定天藍色繡球，溫室內外粉藍花牆必拍。有溫室，下雨也能逛。'},
-  manorblanc:{x:302,y:472, icon:'☕', name:'Manor Blanc', time:'12:00', scene:'hydrangea', kind:'core', day:3, lpos:'below',
-    tags:['7000株繡球','庭園咖啡','海景'], rate:{r:3.8,n:'TripAdvisor',src:'評分樣本少'},
-    desc:'7,000+ 株繡球、邊喝咖啡邊賞花，遠眺山房山＋海。可吃輕食當午餐。'},
-  osulloc:   {x:252,y:406, icon:'🍵', name:'OSULLOC 茶博物館', time:'14:00', scene:'tea', kind:'core', day:3, lpos:'left',
-    tags:['綠茶園','綠茶冰淇淋','室內','雨天友善'], rate:{r:4.1,n:'23.5k',src:'Google'},
-    desc:'一望無際綠茶園，綠茶冰淇淋＋蛋糕必點。室內為主，雨天友善。旁邊 Innisfree 可逛。'},
-  aewol:     {x:174,y:256, icon:'🌅', name:'涯月咖啡街', time:'16:00', scene:'sea', kind:'core', day:3, lpos:'above',
-    tags:['海景咖啡','夕陽','Haejigae','ENFP加分'], rate:null, norate:'海景咖啡一條街',
-    desc:'海景咖啡一條街，看夕陽、拍照、發呆。<b>老婆 IG 點名 Haejigae 해지개</b>（애월북서길 54，09:00–21:00）日落粉橘超美，可當這站定點。'},
-  park981:   {x:148,y:322, icon:'🏎️', name:'9.81 PARK', time:'09–18', scene:'racing', kind:'opt', day:3, lpos:'left',
-    tags:['無動力賽車','刺激','晴天玩','選做'], rate:{r:4.5,n:'250',src:'Trip.com'},
-    desc:'無動力重力賽車，涯月。ENFP 會超愛！晴天玩最爽，雨天打折。想玩就換掉涯月咖啡街時段。'},
-  lucia:     {x:372,y:490, icon:'🌊', name:'Cafe Lucia', time:'09:30', scene:'sea', kind:'opt', day:3, lpos:'below',
-    tags:['絕壁海景','網美拍照','選做'], rate:null, norate:'網美海景咖啡',
-    desc:'柱狀節理絕壁海景咖啡，安德面。主打拍照、餐點普通。可取代 Manor Blanc 或涯月當「海景咖啡」那站。'},
-  arte:      {x:206,y:300, icon:'🎨', name:'ARTE MUSEUM', time:'雨天首推', scene:'art', kind:'opt', day:3, lpos:'right',
-    tags:['沉浸式藝術','純室內','雨天首推'], rate:null, norate:'沉浸式數位藝術',
-    desc:'韓國最大沉浸式數位藝術館，涯月回程順路，純室內。6/19 若暴雨就退守這裡。'},
-};
+<div class="wrap">
 
-const ROUTES = {
-  1: ['airport','yeondong'],
-  2: ['yeondong','jongdalri','seongsan','lunch2','hueree',{x:545,y:452},{x:330,y:332},'yeondong'],
-  3: ['yeondong',{x:300,y:332},'camellia','manorblanc','osulloc','aewol',{x:236,y:206},'yeondong'],
-  4: ['yeondong','airport'],
-};
-
-const META = {
-  1:{label:'Day 1',date:'6/17 三',theme:'落地・連洞黑豬肉',wx:'☀️ 乾',hex:'#f0962f',
-     spots:['airport','yeondong'],
-     note:'第一晚不排景點。連洞吃<b>黑豬肉</b>（Donsadon／火水木／黑豬一條街任挑），吃飽逛逛 Olive Young。'},
-  2:{label:'Day 2',date:'6/18 四',theme:'東部海岸圈・露天繡球＋城山',wx:'☀️ 乾（梅雨前最後乾日）',hex:'#5b8fd6',
-     spots:['yeondong','jongdalri','seongsan','lunch2','hueree','odeurang','londonbagel','bluebottle','uido'],
-     combo:{title:'北岸 4 家名店：擇一～二（別想全吃）',
-       sub:'連洞→終達里沿線都是排隊店，主線只夠停 1～2 站。<b>A、B 二選一</b>就好：',
-       ok:[['🅰️ 麵包派','🥖 오드랑（出發外帶）＋ ☕ Blue Bottle（路上咖啡）— 不用久排，最從容'],
-           ['🅱️ 貝果派','🥯 London Bagel ＋ 🍰 Cafe Layered（同一個點，鹹甜一次吃完）']],
-       bad:'🥖 오드랑 ＋ 🥯 London Bagel 兩家都排 → 早上被排隊吃光，終達里晚到、城山中午曬'},
-     note:'<b>今日選擇</b>：🍞 北岸名店 A／B 擇一（見上方）；🍱 城山午餐二選一；想換 ⛴️ 牛島就拿掉休愛里。'},
-  3:{label:'Day 3',date:'6/19 五',theme:'西南繡球雙園圈',wx:'🌧️ 梅雨第一天・有室內退路',hex:'#b06aa6',
-     spots:['yeondong','camellia','manorblanc','osulloc','aewol','park981','lucia','arte'],
-     note:'<b>今日加碼二選一</b>：🏎️ 9.81 賽車（晴天）或 🌊 Cafe Lucia（海景咖啡），頂多加 1 個。暴雨退 🎨 ARTE。'},
-  4:{label:'Day 4',date:'6/20 六',theme:'退房還車・回高雄',wx:'✈️ 返程',hex:'#54ada3',
-     spots:['yeondong','airport'],
-     note:'早上沒有玩的時間。<b>6/19 晚先打包、買齊免稅品</b>，08:00 前還車、08:50 到機場。'},
-};
-const DAY_HEX={1:'#f0962f',2:'#5b8fd6',3:'#b06aa6',4:'#54ada3'};
-const OV_HEX='#e0863c';
-
-const SCENES={
-  hydrangea:['#cbb6e8','#8fc0ec'], sea:['#8fd6da','#5bb0d6'], food:['#f7b15a','#ef8a6a'],
-  peak:['#a9d27a','#6fb6c4'], tea:['#9fd18a','#5fb39a'], racing:['#f7c14e','#ef8a4a'],
-  art:['#c79ae0','#8f8ce0'], city:['#f3b88e','#e89a86'], hub:['#a9b4c4','#8b97aa'],
-};
-
-/* ---------------- HELPERS ---------------- */
-const SVGNS='http://www.w3.org/2000/svg';
-const $=s=>document.querySelector(s);
-const pt=it=> typeof it==='string' ? {x:SPOTS[it].x,y:SPOTS[it].y} : it;
-function smoothPath(pts){
-  if(pts.length<2) return '';
-  let d=`M ${pts[0].x} ${pts[0].y}`; const t=0.16;
-  for(let i=0;i<pts.length-1;i++){
-    const p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
-    const c1x=p1.x+(p2.x-p0.x)*t, c1y=p1.y+(p2.y-p0.y)*t;
-    const c2x=p2.x-(p3.x-p1.x)*t, c2y=p2.y-(p3.y-p1.y)*t;
-    d+=` C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2.x} ${p2.y}`;
-  }
-  return d;
-}
-const easeInOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-
-/* faint routes */
-const faintG=$('#routesFaint');
-[1,2,3,4].forEach(d=>{const p=document.createElementNS(SVGNS,'path');p.setAttribute('d',smoothPath(ROUTES[d].map(pt)));faintG.appendChild(p);});
-
-/* ---------------- SPOTS ON MAP ---------------- */
-const spotsG=$('#spots');
-const BADGE={opt:'選做',alt:'替代',choice:'二選一'};
-const labelPos=(s,r)=>{switch(s.lpos){
-  case'above':return{x:0,y:-r-9,a:'middle'};
-  case'right':return{x:r+8,y:5,a:'start'};
-  case'left':return{x:-r-8,y:5,a:'end'};
-  default:return{x:0,y:r+18,a:'middle'};}};
-let idx=0;
-for(const key in SPOTS){
-  const s=SPOTS[key];
-  const r = s.kind==='hub'?25 : (s.kind==='core'||s.kind==='choice')?22 : 19;
-  const col = s.kind==='hub' ? '#7c8aa0' : DAY_HEX[s.day]||'#888';
-  const dashed = (s.kind==='opt'||s.kind==='alt');
-  const g=document.createElementNS(SVGNS,'g');
-  g.setAttribute('class','spot pop');g.setAttribute('transform',`translate(${s.x},${s.y})`);g.dataset.key=key;
-  const inner=document.createElementNS(SVGNS,'g');inner.setAttribute('class','spot-inner');inner.style.animationDelay=(++idx*0.045)+'s';g.appendChild(inner);
-  const pulse=document.createElementNS(SVGNS,'circle');pulse.setAttribute('class','pulse');pulse.setAttribute('r',r);
-  pulse.setAttribute('fill','none');pulse.setAttribute('stroke',col);pulse.setAttribute('stroke-width','3');pulse.setAttribute('opacity','0');inner.appendChild(pulse);
-  const ring=document.createElementNS(SVGNS,'circle');ring.setAttribute('class','ring');ring.setAttribute('r',r);
-  ring.setAttribute('fill','#fffdf7');ring.setAttribute('stroke',col);ring.setAttribute('stroke-width','4');ring.setAttribute('filter','url(#softS)');
-  if(dashed) ring.setAttribute('stroke-dasharray','5 3.5');inner.appendChild(ring);
-  const em=document.createElementNS(SVGNS,'text');em.setAttribute('class','spot-emoji');em.setAttribute('text-anchor','middle');em.setAttribute('y',7);em.textContent=s.icon;inner.appendChild(em);
-  if(BADGE[s.kind]){
-    const bw=s.kind==='choice'?40:34;
-    const bg=document.createElementNS(SVGNS,'rect');bg.setAttribute('x',r-8);bg.setAttribute('y',-r-9);bg.setAttribute('width',bw);bg.setAttribute('height',17);bg.setAttribute('rx',8);bg.setAttribute('fill',s.kind==='alt'?'#9a8a6a':col);inner.appendChild(bg);
-    const bt=document.createElementNS(SVGNS,'text');bt.setAttribute('class','badge-tx');bt.setAttribute('x',r-8+bw/2);bt.setAttribute('y',-r+3);bt.setAttribute('text-anchor','middle');bt.textContent=BADGE[s.kind];inner.appendChild(bt);
-  }
-  if(s.kind!=='opt'){
-    const lp=labelPos(s,r);const lb=document.createElementNS(SVGNS,'text');lb.setAttribute('class','spot-label');lb.setAttribute('x',lp.x);lb.setAttribute('y',lp.y);lb.setAttribute('text-anchor',lp.a);lb.textContent=s.name;inner.appendChild(lb);
-  }
-  g.addEventListener('mouseenter',()=>focusCard(key,true));
-  g.addEventListener('mouseleave',()=>unfocusCards());
-  g.addEventListener('click',()=>{moveTokenTo(pt(key));focusCard(key,true);});
-  spotsG.appendChild(g);
-}
-
-/* ---------------- TOKEN ---------------- */
-const token=$('#token'), tokenLean=$('#tokenLean'), tokenFlag=$('#tokenFlag');
-const travel=$('#travelPath');
-let cur={x:SPOTS.yeondong.x,y:SPOTS.yeondong.y};
-token.setAttribute('transform',`translate(${cur.x},${cur.y})`);
-let anim=null, cheerTimer=null;
-const SPEED=210;        // px per second — 統一移動速度（長路線就自然跑久一點）
-const HOP_EVERY=46;     // 每走過這麼多 px 蹦一下（跳動頻率綁距離，與路線長短無關）
-const HOP_H=5;          // 跳躍高度
-
-function cheerInPlace(at,onDone){
-  // 原地不動：放歡呼動畫，不要原地抖
-  const p = at || cur;
-  token.classList.remove('moving');
-  tokenLean.setAttribute('transform','rotate(0)');
-  token.setAttribute('transform',`translate(${p.x},${p.y})`);
-  cur={x:p.x,y:p.y};
-  token.classList.remove('cheer'); void token.getBoundingClientRect(); // restart animation
-  token.classList.add('cheer');
-  if(cheerTimer) clearTimeout(cheerTimer);
-  cheerTimer=setTimeout(()=>token.classList.remove('cheer'),760);
-  onDone&&onDone();
-}
-
-function runTravel(points,opts){
-  opts=opts||{};
-  if(anim) cancelAnimationFrame(anim);
-  let pathPts;
-  if(opts.snap){
-    // 切換到某一天：鼠寶直接定位到該天路線起點，再跑完整條路（不從上一個位置繞回來）
-    cur={...points[0]};
-    token.setAttribute('transform',`translate(${cur.x},${cur.y})`);
-    pathPts=points;
-  }else{
-    const start=points[0];
-    pathPts=(Math.hypot(start.x-cur.x,start.y-cur.y)>14)?[{...cur},...points]:points;
-  }
-  travel.setAttribute('d',smoothPath(pathPts));
-  const len=travel.getTotalLength();
-  const end=points[points.length-1];
-  const onDone=opts.onDone;
-  if(len<6){ cheerInPlace(end,onDone); return; }              // 幾乎沒動 → 原地歡呼
-  token.classList.remove('cheer');
-  const dur=(len/SPEED)*1000;                                  // 固定速度 → 時長隨距離線性變化
-  token.classList.add('moving');let t0=null;
-  function frame(now){
-    if(!t0)t0=now;let t=Math.min(1,(now-t0)/dur);const e=easeInOut(t);const dist=e*len;
-    const p=travel.getPointAtLength(dist);const ahead=travel.getPointAtLength(Math.min(len,dist+2));
-    const hop=Math.abs(Math.sin((dist/HOP_EVERY)*Math.PI))*HOP_H; // 跳動跟「走過距離」綁定
-    token.setAttribute('transform',`translate(${p.x.toFixed(2)},${(p.y-hop).toFixed(2)})`);
-    tokenLean.setAttribute('transform',`rotate(${Math.max(-9,Math.min(9,(ahead.x-p.x)*1.4)).toFixed(1)})`);
-    if(t<1){anim=requestAnimationFrame(frame);}
-    else{token.classList.remove('moving');tokenLean.setAttribute('transform','rotate(0)');cur={x:end.x,y:end.y};
-      cheerInPlace(end,onDone); }                              // 抵達後也來個小歡呼
-  }
-  anim=requestAnimationFrame(frame);
-}
-function moveTokenTo(p){ runTravel([{...cur},p]); }
-function runDay(points){ runTravel(points,{snap:true}); }
-
-/* ---------------- DAY SWITCH ---------------- */
-const activeRoute=$('#activeRoute'), activeRoad=$('#activeRoad');
-const pHead=$('#pHead'), cardsEl=$('#cards'), panel=$('#panel');
-let current='overview';
-
-function setDay(key){
-  current=key;
-  const isOv = key==='overview';
-  const hex = isOv?OV_HEX:META[key].hex;
-  document.querySelectorAll('.day-btn').forEach(b=>b.classList.toggle('on',b.dataset.k===String(key)));
-  panel.style.setProperty('--accent',hex);
-  tokenFlag.setAttribute('fill',hex);
-
-  if(isOv){
-    activeRoute.setAttribute('d','');activeRoad.setAttribute('d','');
-    document.querySelectorAll('.spot').forEach(g=>{g.classList.remove('dim','active','hl');g.querySelector('.pulse').setAttribute('opacity','0');});
-    moveTokenTo(pt('yeondong'));
-  }else{
-    const dpath=smoothPath(ROUTES[key].map(pt));
-    activeRoute.setAttribute('d',dpath);activeRoad.setAttribute('d',dpath);activeRoute.setAttribute('stroke',hex);
-    document.querySelectorAll('.spot').forEach(g=>{const s=SPOTS[g.dataset.key];const inDay=s.kind==='hub'||s.day===key;
-      g.classList.toggle('dim',!inDay);g.classList.toggle('active',s.day===key);g.classList.remove('hl');
-      g.querySelector('.pulse').setAttribute('opacity',s.day===key?'':'0');});
-    runDay(ROUTES[key].map(pt));
-  }
-  renderPanel(key);
-}
-
-function stars(s){
-  if(!s.rate) return `<span class="rate none">✨ ${s.norate}</span>`;
-  const rt=s.rate;
-  return `<span class="rate" title="${rt.src}"><span class="star">★</span>${rt.r}<span class="cnt">(${rt.n})</span></span>`;
-}
-function comboCard(c){
-  const oks=c.ok.map(([t,d])=>`<div class="cmb-row ok"><span class="cmb-tag">${t}</span><span class="cmb-d">${d}</span></div>`).join('');
-  return `<div class="combo">
-    <div class="cmb-h">⚖️ ${c.title}</div>
-    <div class="cmb-sub">${c.sub}</div>
-    ${oks}
-    <div class="cmb-row bad"><span class="cmb-x">✗ 別這樣</span><span class="cmb-d">${c.bad}</span></div>
-  </div>`;
-}
-function spotCard(key,delay){
-  const s=SPOTS[key];
-  const col = s.kind==='hub' ? '#7c8aa0' : DAY_HEX[s.day]||OV_HEX;
-  const sc=SCENES[s.scene]||SCENES.hub;
-  const badge = BADGE[s.kind] ? `<span class="chip kind" style="background:${s.kind==='alt'?'#9a8a6a':col}">${BADGE[s.kind]}</span>`:'';
-  const srcLine = s.rate ? `<div class="src">${s.rate.src}</div>`:'';
-  const tags=(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
-  return `<div class="scard" data-key="${key}" style="--c:${col};animation-delay:${delay}s">
-    <div class="scard-photo" style="background:linear-gradient(150deg,${sc[0]},${sc[1]})">
-      <span class="deco a">✦</span><span class="hero">${s.icon}</span><span class="deco b">❀</span>
-      <span class="chip time">${s.time}</span>${badge}
+  <!-- ============================ DAY 1 ============================ -->
+  <section class="day on" data-day="1" style="--c:#f0962f;--cd:#c2622a">
+    <div class="day-head">
+      <div class="dh-top">
+        <span class="dh-day">Day 1</span><span class="dh-date">6/17（三）</span>
+        <span class="dh-wx">☀️ 乾</span>
+      </div>
+      <div class="dh-theme">🛬 傍晚落地 → 連洞吃黑豬肉</div>
+      <div class="dh-note">第一晚<b>不排景點</b>。19:15 落地、取車、開到連洞放行李，吃碗熱湯暖胃就好。連洞是濟州市最熱鬧商圈，餐廳開很晚、換錢所／免稅店／Olive Young 都在這。</div>
     </div>
-    <div class="scard-body">
-      <div class="scard-top"><span class="sname">${s.name}</span>${stars(s)}</div>
-      ${srcLine}
-      <div class="tags">${tags}</div>
-      <p class="sdesc">${s.desc}</p>
-    </div></div>`;
-}
 
-function renderPanel(key){
-  if(key==='overview'){
-    pHead.innerHTML=`<div class="ph-top"><span class="ph-day">全程總覽</span><span class="ph-date">4 天 3 夜</span></div>
-      <div class="ph-theme">🌸 繡球花 × 🌊 海景 × 🍴 吃吃喝喝</div>
-      <div class="ph-note">點下面的卡片或下方 <b>Day 1–4</b>，看 🐭 鼠寶帶你跑當天路線。</div>`;
-    cardsEl.innerHTML=[1,2,3,4].map((d,i)=>{const m=META[d];
-      const cnt=m.spots.filter(k=>SPOTS[k].kind!=='hub').length;
-      return `<div class="ovcard" data-day="${d}" style="--c:${m.hex};animation-delay:${i*0.06}s">
-        <div class="ov-em">${d===1?'🛬':d===2?'🌸':d===3?'🌺':'🛫'}</div>
-        <div><div class="ov-d">${m.label}　<span style="font-size:12px;color:var(--ink2);font-family:'Noto Sans TC'">${m.date}</span></div>
-        <div class="ov-t">${m.theme}</div><div class="ov-s">${m.wx}　・　${cnt} 個點</div></div></div>`;}).join('');
-    cardsEl.querySelectorAll('.ovcard').forEach(c=>c.addEventListener('click',()=>setDay(Number(c.dataset.day))));
-    return;
-  }
-  const m=META[key];
-  pHead.innerHTML=`<div class="ph-top"><span class="ph-day">${m.label}</span><span class="ph-date">${m.date}</span></div>
-    <div class="ph-theme">${m.theme}</div><span class="ph-wx">${m.wx}</span>
-    <div class="ph-note">${m.note}</div>`;
-  const comboHtml = m.combo ? comboCard(m.combo) : '';
-  cardsEl.innerHTML=comboHtml + m.spots.map((k,i)=>spotCard(k,i*0.05)).join('');
-  cardsEl.querySelectorAll('.scard').forEach(c=>{
-    const k=c.dataset.key;
-    c.addEventListener('mouseenter',()=>hlSpot(k,true));
-    c.addEventListener('mouseleave',()=>hlSpot(k,false));
-    c.addEventListener('click',()=>{moveTokenTo(pt(k));});
+    <div class="tl">
+
+      <!-- 抵達 -->
+      <div class="stop">
+        <div class="stop-h">
+          <span class="time">19:15</span>
+          <span class="stop-ttl"><span class="ic">✈️</span>抵達濟州機場</span>
+        </div>
+        <div class="stop-b">
+          <div class="tags"><span class="tag">國際線</span><span class="tag">出關往 Gate 2</span></div>
+          <p class="desc">航班 19:15 落地。出關後到機場內 <b>Gate 2 樂天租車櫃檯</b>報到（提供預訂姓名確認抵達）。順利的話約 20:30 上路、20:45 到連洞飯店。</p>
+        </div>
+      </div>
+
+      <!-- 取車 HERO CARD -->
+      <div class="car">
+        <div class="car-h">
+          <span class="time">19:20–20:30</span>
+          <span class="ct"><span class="ic">🚗</span>樂天租車・機場取車</span>
+        </div>
+
+        <div class="car-sec">
+          <div class="sec-lbl"><span class="bar"></span>訂單明細（已確認）<a class="lnk" href="https://www.lotterentacar.net/hp/eng/myPage/reservationDetail.do" target="_blank" rel="noopener">查訂單 <span class="arr">↗</span></a></div>
+          <dl class="od">
+            <dt>預訂編號</dt><dd class="hl">2622398788<small>MozLotte</small></dd>
+            <dt>車款</dt><dd>SELTOS 4WD (G) 5P<small>汽油・小型 SUV・4WD 底盤穩</small></dd>
+            <dt>保險</dt><dd>CDW 零自負額全險 ✅<small>Zero Excess・濟州必保</small></dd>
+            <dt>取車</dt><dd>6/17（三）20:00</dd>
+            <dt>還車</dt><dd>6/19（五）20:00</dd>
+            <dt>地點</dt><dd>Jeju Auto House<small>용해로 92・龍潭（取＝還同地）</small></dd>
+            <dt>租金</dt><dd class="hl">115,700 KRW<small>現場刷主駕本人卡</small></dd>
+          </dl>
+        </div>
+
+        <div class="car-sec">
+          <div class="sec-lbl"><span class="bar"></span>落地取車 5 步驟</div>
+          <ol class="steps">
+            <li>機場內 <b>Gate 2 樂天櫃檯</b>報到確認抵達。<span class="mini">（清晨 6 點前沒人上班，可直接走 Gate 5）</span></li>
+            <li>從 <b>Gate 5</b> 出來過馬路往右走，沿「렌터카 셔틀버스（租車接駁）」指標到接駁站，認 <b>紅色 LOTTE logo</b>。</li>
+            <li>搭<b>免費接駁車</b>到龍潭取車中心，車程約 <b>30 分</b>。<span class="mini">5–20 分一班，07:00–23:00（6 點前抵達先電 064-751-8000）</span></li>
+            <li>抽號碼牌選「<b>Foreigners 外國人</b>」→ 出示證件 → 約 10 分完成手續。</li>
+            <li>取車前<b>自己先把車身四周拍照／錄影</b>存證（刮痕、油量），保護自己。</li>
+          </ol>
+        </div>
+
+        <div class="car-sec">
+          <div class="sec-lbl"><span class="bar"></span>自助報到 QR 碼</div>
+          <div class="qr-box">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQAAAACFI5MzAAACYUlEQVR42u2XQc6kIBCFy7BgR1+AhGu480pyAW0voFdixzVIuIDuXBBrHs4snE4mmbb+pabTofkSgapXj2rifz30kIc85H8IkXYzuZWKId4CNSLiOFrP1Oxu4bxE3kTENlFtsQw6UaeWSF5KbN+qaU8+8PQDJM8tr2R9xFhIEAN3aARSra3ij+h8TZCfusKfz0fmviZ48tHZhpEf6z9U9TVRq84zJSI1a8V7akTEvVvsF0cvRHkKjkXEvmJCGEyXmuCw1CIiSHUyRK/o3p072swi4raYeoJksKCaAi8iUvxu/c7LXgZS0PUoInYMaaDUd6iSPLFiEVEQjg+oXcyR6VhGHAc1McKQl2Bfe15EJI2sZuSHywu7DhhICA2EWCItpYfAdZIRnnbUXHXQ4wzAJCJw9/pAPkarlS66vkNgJ3bc8XpLWm180c4dkrdoRyYf3QJjjhft3CF1BdNR9apQHWsSkXr6vnoVuHqT2kTEbafBjBHZVhyKFxG1BXinHVqYfV7bi3bukMx78Th9gGnZni4xuEOqH5jqo2U8b7ZFRMoAX0HhVq9C+ZZRRHD/pF7XUjYdoptZRDABJ1D1htTYNcsIpiHDAjGazg7XmrtFhvYs3Gh/Z9uLCG9RHW3pyQ6a5+6SnzsEMsTFCDlnjqhmIXG4wcxpV4OGEi9+cIdUMUI7qDy4Mr5HEamlNtXVHBrPJgoJ9II8q9MV0Itd/foGqf31qtE62aFzb5KT9KpN8elV+CkltZU4dB1wsF5EqqOggcJd8dbwv796iu9J7a+NRi+GHtZStQQJef65PuQhP0x+AZMKxfAp9BCsAAAAAElFTkSuQmCC" alt="樂天租車自助報到 QR 碼">
+            <div class="qr-cap">到櫃檯掃這個碼自助報到<br>預訂編號 <b>2622398788</b></div>
+            <div style="margin-top:11px">
+              <a class="lnk" href="https://tracking.lotterental.net/5I-110463I-41E-8iNR20260614005810353I-4goaSoZE-8zPqrCF-13982I-4ehhgE-8D-7D-7DDDD-6aChhPuPHhBoBuD-6HPhD-7PHED-7uPzPucBhSCHD-7qufCJPD-6JCF-3uPzPucrCF-12622398788C-8BbgE-9bPbvPurCF-1118084211I-3" target="_blank" rel="noopener">📱 開啟 QR 報到連結 <span class="arr">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="car-sec">
+          <div class="sec-lbl"><span class="bar"></span>機場取車動線</div>
+          <img class="mapimg" src="CarRentMap.png" alt="濟州機場樂天租車取車動線圖">
+          <div class="mapimg-cap">Gate 2 報到 → Gate 5 出來 → 接駁站 <b>1–4 號區</b>（認紅色 LOTTE）→ 接駁車到龍潭</div>
+        </div>
+
+        <div class="car-sec">
+          <div class="box bring">
+            <div class="bh">🪪 缺一不能取車</div>
+            <ul class="chk">
+              <li>台灣駕照正本</li><li>國際駕照正本</li>
+              <li>護照（拼寫一致）</li><li>主駕本人信用卡</li>
+            </ul>
+            <div style="margin-top:7px;color:#9a5a14;font-size:12.5px">現場<b>只收刷卡、不收現金</b>，卡片必須是駕駛本人的。兩人輪流開 → 第二位也帶國際駕照、櫃檯一起登記共同駕駛。</div>
+          </div>
+
+          <div class="box binfo">
+            <div class="bh">ℹ️ 整趟用車安排（重要）</div>
+            這台車<b>只租到 6/19（五）晚 20:00</b>，當晚要把車開回龍潭 Auto House 還掉（先加滿油＋拍車況）。所以 <b>6/20 早上沒有車</b>——退房後從連洞搭計程車去機場（約 10 分、車資便宜）。
+          </div>
+        </div>
+      </div>
+
+      <!-- 開往連洞 -->
+      <div class="stop">
+        <div class="stop-h">
+          <span class="time">20:30–20:45</span>
+          <span class="stop-ttl"><span class="ic">🛣️</span>開車到連洞</span>
+        </div>
+        <div class="stop-b">
+          <p class="desc">機場 → 連洞 <b>約 10–15 分鐘</b>。導航用 <b>Naver Map</b>（中文介面，比 Google 準、有測速提醒）。濟州靠右行駛、限速嚴格，慢慢開最安全。</p>
+        </div>
+      </div>
+
+      <!-- Check in -->
+      <div class="stop">
+        <div class="stop-h">
+          <span class="time">20:45</span>
+          <span class="stop-ttl"><span class="ic">🏨</span>Check in・Ventimo 酒店</span>
+        </div>
+        <div class="stop-b">
+          <div class="tags"><span class="tag">連洞大本營</span><span class="tag">放行李</span></div>
+          <p class="desc">地址：연삼로 14（＝<b>연동 290-3</b>）。放好行李、稍微梳洗，出門吃晚餐。<br><span style="color:var(--ink3);font-size:12px">📍 Naver 搜：제주특별자치도 제주시 연동 290-3</span></p>
+        </div>
+      </div>
+
+      <!-- 晚餐 三選一 -->
+      <div class="pick">
+        <div class="pick-h">
+          <span class="time">21:00–</span>
+          <div class="pt">🍲 連洞晚餐・排骨湯三選一</div>
+          <div class="ps">晚到又累、隔天要早起衝終達里——喝碗熱的暖胃剛好，不必趕烤肉 L.O.。三家都 <b>24 小時營業</b>、都在連洞，到現場看哪家順／不用排就進哪家。</div>
+        </div>
+        <div class="opts">
+          <div class="opt">
+            <div class="opt-t"><span class="pin">首推</span>24시제주해장국 連洞店<span class="opt-meta">24h</span></div>
+            <div class="opt-d">道民推薦的 <b>감자탕／해장국</b> 名店，連洞 24 小時店排行前段，21 點後絕對開著。</div>
+          </div>
+          <div class="opt">
+            <div class="opt-t"><span class="pin">最安心</span>24시간뼈해장국<span class="opt-meta">連洞 271-22・24h</span></div>
+            <div class="opt-d">馬鈴薯豬骨湯（감자탕／뼈해장국），<b>永遠開著最安心</b>，宵夜也能來。老婆 IG 收藏點。</div>
+          </div>
+          <div class="opt">
+            <div class="opt-t"><span class="pin">中文友善</span>서진이네해장국 24시감자탕<span class="opt-meta">연동／제원・24h</span></div>
+            <div class="opt-d"><b>老闆會講中文</b>、份量大，감자탕＋炒飯，溝通零壓力。</div>
+          </div>
+          <div class="opt" style="border-style:dashed">
+            <div class="opt-t"><span class="pin" style="background:#9a8a6a">想吃烤肉</span>黑豬肉（숙성도本店／火水木）<span class="opt-meta">L.O. 約 21:30–22:00</span></div>
+            <div class="opt-d">21:00 到還趕得上點，但<b>較趕</b>。想吃熟成黑豬就衝 숙성도（老衡洞、近連洞，建議先 Catchtable 訂位）。</div>
+          </div>
+        </div>
+        <div class="pick-note">
+          🥄 韓國「排骨湯」分兩種：<b>감자탕／뼈해장국</b>（豬背骨帶肉、微辣暖胃，最接近台灣排骨湯，連洞 24h 店多做這個）；<b>갈비탕</b>（牛肋排清湯、不辣清爽）。<br>
+          ⚠️ <b>옛날아우내순대 L.O. 只到 20:30</b>，21:00 到來不及——它是別天的午餐選項，不是第一晚的選擇。
+        </div>
+      </div>
+
+      <div class="stamp">🌙 吃飽逛逛 Olive Young / 換錢，早點休息 — 明天 08:00 出發衝東部 💪</div>
+
+    </div>
+  </section>
+
+  <!-- ============================ DAY 2 ============================ -->
+  <section class="day" data-day="2" style="--c:#5b8fd6;--cd:#3f6fb0">
+    <div class="day-head">
+      <div class="dh-top">
+        <span class="dh-day">Day 2</span><span class="dh-date">6/18（四）</span>
+        <span class="dh-wx">☀️ 乾</span>
+      </div>
+      <div class="dh-theme">🌸 東部海岸圈・露天繡球＋城山日出峰</div>
+      <div class="dh-note">梅雨前<b>最後乾日</b>，早起把怕雨的露天景點吃滿：終達里海邊繡球、城山日出峰、休愛里。由東北往東南繞一圈，不走回頭路。</div>
+    </div>
+    <div class="tl">
+      <div class="todo">
+        <span class="em">🗓️</span>
+        <div class="tt">Day 2 行程細節整理中</div>
+        <div class="td">骨架已定：<b>終達里 → 城山日出峰 → 城山午餐 → 休愛里</b>，外加東部北岸名店與午餐的擇一選擇題。<br>定案後補上完整卡片 🐭</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DAY 3 ============================ -->
+  <section class="day" data-day="3" style="--c:#b06aa6;--cd:#8a4f82">
+    <div class="day-head">
+      <div class="dh-top">
+        <span class="dh-day">Day 3</span><span class="dh-date">6/19（五）</span>
+        <span class="dh-wx">🌧️ 梅雨第一天</span>
+      </div>
+      <div class="dh-theme">🌺 西南繡球雙園圈・傍晚還車</div>
+      <div class="dh-note">梅雨季第一天，這條線<b>晴雨都成立</b>（有溫室＋室內退路）。傍晚要把車開回龍潭 Auto House 還車（20:00 前），涯月夕陽要提早收。</div>
+    </div>
+    <div class="tl">
+      <div class="todo">
+        <span class="em">🗓️</span>
+        <div class="tt">Day 3 行程細節整理中</div>
+        <div class="td">骨架已定：<b>山茶花之丘 → Manor Blanc → OSULLOC → 涯月咖啡街</b>，外加 9.81 賽車／Cafe Lucia 的加碼選擇題與雨天備案。<br>定案後補上完整卡片 🐭</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DAY 4 ============================ -->
+  <section class="day" data-day="4" style="--c:#54ada3;--cd:#3a857c">
+    <div class="day-head">
+      <div class="dh-top">
+        <span class="dh-day">Day 4</span><span class="dh-date">6/20（六）</span>
+        <span class="dh-wx">✈️ 返程</span>
+      </div>
+      <div class="dh-theme">🛫 退房 → 計程車去機場 → 回高雄</div>
+      <div class="dh-note">車已於 <b>6/19 晚還掉</b>，今天全程無車。連洞 → 機場搭計程車（約 10 分）。採買／免稅品都在 <b>6/19 晚上</b>先搞定。</div>
+    </div>
+    <div class="tl">
+      <div class="todo">
+        <span class="em">🗓️</span>
+        <div class="tt">Day 4 行程細節整理中</div>
+        <div class="td">骨架已定：08:00 退房 → 叫計程車到機場 → 10:50 起飛回高雄（12:15 抵高雄）。<br>定案後補上完整卡片 🐭</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  點上方 <b style="color:#d97a1f">Day 1–4</b> 切換每天行程 ・ 為鼠寶 <span class="heart">♥</span> 量身打造<br>
+  <span style="color:#c4b9a6">資料來源：濟州島賞繡球花自駕攻略 ・ 更新 6/14</span>
+</footer>
+
+<script>
+  const META=[
+    {k:1,d:'Day 1',dt:'6/17',wx:'☀️',c:'#f0962f',cd:'#c2622a'},
+    {k:2,d:'Day 2',dt:'6/18',wx:'☀️',c:'#5b8fd6',cd:'#3f6fb0'},
+    {k:3,d:'Day 3',dt:'6/19',wx:'🌧️',c:'#b06aa6',cd:'#8a4f82'},
+    {k:4,d:'Day 4',dt:'6/20',wx:'✈️',c:'#54ada3',cd:'#3a857c'},
+  ];
+  const tabsEl=document.getElementById('tabs');
+  META.forEach(m=>{
+    const b=document.createElement('button');
+    b.className='tab';b.dataset.k=m.k;
+    b.style.setProperty('--c',m.c);b.style.setProperty('--cd',m.cd);
+    b.innerHTML=`<div class="t-d">${m.d}</div><div class="t-dt">${m.dt}</div><div class="t-wx">${m.wx}</div>`;
+    b.addEventListener('click',()=>setDay(m.k));
+    tabsEl.appendChild(b);
   });
-}
 
-/* ---------- map<->card sync ---------- */
-function focusCard(key,scroll){
-  const card=cardsEl.querySelector(`.scard[data-key="${key}"]`);
-  cardsEl.querySelectorAll('.scard').forEach(c=>c.classList.remove('focus'));
-  if(card){card.classList.add('focus');if(scroll)card.scrollIntoView({block:'nearest',behavior:'smooth'});}
-}
-function unfocusCards(){cardsEl.querySelectorAll('.scard').forEach(c=>c.classList.remove('focus'));}
-function hlSpot(key,on){const g=spotsG.querySelector(`.spot[data-key="${key}"]`);if(g)g.classList.toggle('hl',on);}
+  let cur=1;
+  function setDay(k){
+    cur=k;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',+t.dataset.k===k));
+    document.querySelectorAll('.day').forEach(s=>s.classList.toggle('on',+s.dataset.day===k));
+    // 切換後把頁面捲到 tab 下方，方便直接看當天內容
+    const y=window.scrollY, tabsTop=document.querySelector('.tabs-outer').offsetTop;
+    if(y>tabsTop) window.scrollTo({top:tabsTop,behavior:'instant'in window?'instant':'auto'});
+  }
 
-/* ---------------- SWITCHER ---------------- */
-const sw=$('#switch');
-[['overview','🗺️','全程','總覽'],[1,'🐭','Day 1','6/17'],[2,'🐭','Day 2','6/18'],[3,'🐭','Day 3','6/19'],[4,'🐭','Day 4','6/20']]
-.forEach(([k,pin,d,sm])=>{
-  const hex = k==='overview'?OV_HEX:META[k].hex;
-  const b=document.createElement('button');b.className='day-btn';b.dataset.k=String(k);b.style.setProperty('--c',hex);
-  b.innerHTML=`<span class="pin">${pin}</span><span class="db-d">${d}</span><span class="db-sm">${sm}</span>`;
-  b.addEventListener('click',()=>setDay(k==='overview'?'overview':Number(k)));
-  sw.appendChild(b);
-});
+  // 鍵盤左右切換（桌機方便）
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft') setDay(Math.max(1,cur-1));
+    if(e.key==='ArrowRight') setDay(Math.min(4,cur+1));
+  });
 
-/* keyboard */
-const order=['overview',1,2,3,4];
-document.addEventListener('keydown',e=>{
-  if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
-  const i=order.indexOf(current);let ni=Math.max(0,Math.min(order.length-1,i+(e.key==='ArrowRight'?1:-1)));
-  const nk=order[ni];setDay(nk==='overview'?'overview':Number(nk));
-});
-
-/* init */
-setDay('overview');
+  setDay(1);
 </script>
 </body>
 </html>
